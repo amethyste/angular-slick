@@ -125,6 +125,7 @@ angular.module('slick', []).directive('slick', [
               }
             });
             slider.on('afterChange', function (event, slick, currentSlide, nextSlide) {
+              $rootScope.$emit('slick:afterChange', currentSlide);
               if (scope.onAfterChange) {
                 scope.onAfterChange();
               }
@@ -134,6 +135,12 @@ angular.module('slick', []).directive('slick', [
                   return scope.currentIndex = currentSlide;
                 });
               }
+            });
+            $rootScope.$on('beverage:activate', function (event) {
+              event.preventDefault();
+              $timeout(function () {
+                slider.slick('slickGoTo', 0);
+              }, 600);
             });
             return scope.$watch('currentIndex', function (newVal, oldVal) {
               if (currentIndex != null && newVal != null && newVal !== currentIndex) {
