@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('slick', [])
-  .directive "slick", ($timeout) ->
+  .directive "slick", ($rootScope, $timeout) ->
     restrict: "AEC"
     scope:
       initOnload: "@"

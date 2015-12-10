@@ -1,7 +1,8 @@
 'use strict';
 angular.module('slick', []).directive('slick', [
+  '$rootScope',
   '$timeout',
-  function ($timeout) {
+  function ($rootScope, $timeout) {
     return {
       restrict: 'AEC',
       scope: {
