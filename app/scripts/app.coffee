@@ -115,6 +115,8 @@ angular.module('slick', [])
               sl.slideHandler(currentIndex)
 
           slider.on 'afterChange', (event, slick, currentSlide, nextSlide) ->
+            $rootScope.$emit 'slick:afterChange', currentSlide
+
             scope.onAfterChange() if scope.onAfterChange
 
             if currentIndex?
@@ -122,6 +124,14 @@ angular.module('slick', [])
                 currentIndex = currentSlide
                 scope.currentIndex = currentSlide
               )
+
+          $rootScope.$on 'beverage:activate', (event) ->
+            event.preventDefault()
+            $timeout (->
+              slider.slick 'slickGoTo', 0
+              return
+            ), 600
+            return
 
           scope.$watch("currentIndex", (newVal, oldVal) ->
             if currentIndex? and newVal? and newVal != currentIndex
